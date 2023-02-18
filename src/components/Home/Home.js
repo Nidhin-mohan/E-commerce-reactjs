@@ -1,4 +1,5 @@
 import React from 'react'
+import MetaData from '../layout/MetaData';
 import Product from './Product'
 
 const product = {
@@ -15,6 +16,7 @@ const product = {
 function Home() {
   return (
     <div>
+        <MetaData title="Home"/>
       <h1>welcome to store</h1>
       <h2>Featured Products</h2>
       <Product product={product} />
