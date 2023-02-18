@@ -16,15 +16,15 @@ const product = {
 function Home() {
   return (
     <div>
-        <MetaData title="Home"/>
+      <MetaData title="Home" />
       <h1>welcome to store</h1>
       <h2>Featured Products</h2>
-      <Product product={product} />
-      <Product product={product} />
-      <Product product={product} />
-      <Product product={product} />
-      <Product product={product} />
-      <Product product={product} />
+      <div class="flex  ">
+        <Product  product={product} />
+        <Product  product={product} />
+        <Product  product={product} />
+      
+      </div>
     </div>
   );
 }
