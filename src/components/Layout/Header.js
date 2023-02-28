@@ -1,8 +1,22 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 import { NavLink, Link } from "react-router-dom";
-import { GiShoppingBag } from "react-icons/gi";
+import { useAuth } from "../../context/auth";
+
 
 const Header = () => {
+  const [auth, setAuth] = useAuth()
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user:null,
+      token: "",
+    
+    });
+    localStorage.removeItem("auth");
+    toast.success("Logged out succesfuly");
+  };
+
   return (
     <>
       <nav className="bg-body-tertiary py-3 shadow-lg">
@@ -15,7 +29,7 @@ const Header = () => {
               className="md:hidden rounded-lg text-black hover:text-gray-900 focus:outline-none focus:shadow-outline-purple"
               aria-label="Toggle Menu"
             >
-              <GiShoppingBag className="w-6 h-6" />
+            
             </button>
           </div>
           <div className="hidden md:flex flex-col md:flex-row md:-mx-4">
@@ -32,24 +46,34 @@ const Header = () => {
             >
               Category
             </NavLink>
-            <NavLink
-              to="/register"
+            {!auth.user ? (
+              <><NavLink
+                to="/register"
+                className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
+              >
+                Register
+              </NavLink><NavLink
+                to="/login"
+                className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
+              >
+                  Login
+                </NavLink></>
+            ) : (
+              <NavLink
+              to="/logout"
               className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
+              onClick={handleLogout}
             >
-              Register
+              Logout
             </NavLink>
-            <NavLink
-              to="/login"
-              className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
-            >
-              Login
-            </NavLink>
+            )
+            }
             <NavLink
               to="/cart"
               className="my-1 text-black hover:text-gray-900px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
             >
               <span className="flex items-center">
-                <GiShoppingBag className="w-4 h-4 mr-1" />
+               
                 Cart (0)
               </span>
             </NavLink>
