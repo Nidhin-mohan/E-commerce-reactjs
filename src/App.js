@@ -1,19 +1,7 @@
-import { Route, Routes } from "react-router-dom";
-import Home from "./components/Home/Home.js";
-import Footer from "./components/layout/Footer.js";
-import Header from "./components/layout/Header.js";
+import React from 'react'
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/books" element={<BookList />} /> */}
-      </Routes>
-      <Footer />
-    </div>
-  );
+const App = () => {
+  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
 }
 
-export default App;
+export default App
