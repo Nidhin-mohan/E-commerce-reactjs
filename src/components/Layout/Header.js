@@ -28,9 +28,7 @@ const Header = () => {
             <button
               className="md:hidden rounded-lg text-black hover:text-gray-900 focus:outline-none focus:shadow-outline-purple"
               aria-label="Toggle Menu"
-            >
-            
-            </button>
+            ></button>
           </div>
           <div className="hidden md:flex flex-col md:flex-row md:-mx-4">
             <NavLink
@@ -47,35 +45,63 @@ const Header = () => {
               Category
             </NavLink>
             {!auth.user ? (
-              <><NavLink
-                to="/register"
-                className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
-              >
-                Register
-              </NavLink><NavLink
-                to="/login"
-                className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
-              >
+              <>
+                <NavLink
+                  to="/register"
+                  className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
+                >
+                  Register
+                </NavLink>
+                <NavLink
+                  to="/login"
+                  className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
+                >
                   Login
-                </NavLink></>
-            ) : (
-              <NavLink
-              to="/logout"
-              className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
-              onClick={handleLogout}
-            >
-              Logout
-            </NavLink>
-            )
-            }
+                </NavLink>
+              </>
+            ) : (<>
+              <li className="relative">
+                <button
+                  className="flex items-center justify-center h-full w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  id="options-menu"
+                  aria-haspopup="true"
+                  aria-expanded="true"
+                  aria-label="User menu"
+                >
+                  <span className="sr-only">Open user menu</span>
+                  <span>{auth?.user?.name}</span>
+                </button>
+                <div
+                  className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <a
+                    href="/dashboard"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    role="menuitem"
+                  >
+                    Dashboard
+                  </a>
+                  <a
+                    href="/login"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    role="menuitem"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </a>
+                </div>
+              </li>
+              </>
+            )}
+
             <NavLink
               to="/cart"
               className="my-1 text-black hover:text-gray-900px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
             >
-              <span className="flex items-center">
-               
-                Cart (0)
-              </span>
+              <span className="flex items-center">Cart (0)</span>
             </NavLink>
           </div>
         </div>
