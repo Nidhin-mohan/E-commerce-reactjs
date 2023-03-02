@@ -3,11 +3,12 @@ import React from "react";
 const CategoryForm = ({ handleSubmit, value, setValue }) => {
   return (
     <>
-      <form onSubmit={handleSubmit} className="mx-auto max-w-md">
+      <form onSubmit={handleSubmit} className="pb-10 max-w-md">
         <div className="mb-4">
+           <label for="email" class="leading-7 text-sm text-gray-600">Collection Name</label>
           <input
             type="text"
-            className="w-full px-3 py-2 rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full px-3 py-2 rounded-md border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             placeholder="Enter new category"
             value={value}
             onChange={(e) => setValue(e.target.value)}

@@ -61,7 +61,7 @@ const Header = () => {
               </>
             ) : (
               <>
-                <li className="relative">
+                <li className="list-none">
                   <button
                     className="flex items-center justify-center h-full w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     id="options-menu"

@@ -8,12 +8,12 @@ const AdminDashboard = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto my-3 px-3">
+      <div className="container mx-auto   my-3 px-3">
         <div className="flex flex-wrap -mx-3">
           <div className="w-full md:w-1/4 px-3">
             <AdminMenu />
           </div>
-          <div className="w-full md:w-3/4 px-3">
+          <div className="w-full md:w-3/4 px-3 flex flex-col text-center ">
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-2xl font-medium mb-4">
                 Admin Name : {auth?.user?.name}

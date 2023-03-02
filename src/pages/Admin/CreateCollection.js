@@ -21,6 +21,7 @@ const CreateCollection = () => {
       if (data?.success) {
         toast.success(`${name} is created`);
         getAllCollections();
+        
       } else {
         toast.error(data.message);
       }
@@ -85,74 +86,72 @@ const CreateCollection = () => {
   };
   return (
     <Layout title={"Dashboard - Create Category"}>
-
-  <div className="container mx-auto my-3 px-3">
-    <div className="flex flex-row">
-      <div className="w-1/4">
-        <AdminMenu />
-      </div>
-      <div className="w-3/4">
-        <h1 className="text-3xl font-bold mb-3">Manage Category</h1>
-        <div className="p-3 w-1/2">
-          <CategoryForm
-            handleSubmit={handleSubmit}
-            value={name}
-            setValue={setName}
-          />
+      <div className="container mx-auto my-3 px-3">
+        <div className="flex flex-row">
+          <div className="w-1/4">
+            <AdminMenu />
+          </div>
+          <div className="w-3/4 mt-10 flex flex-col items-center ">
+            <h1 className="text-3xl font-bold mb-3">Manage Category</h1>
+            <div className="p-3 w-1/2">
+              <CategoryForm
+                handleSubmit={handleSubmit}
+                value={name}
+                setValue={setName}
+              />
+            </div>
+            <div className="w-3/4">
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2 bg-gray-200">Name</th>
+                    <th className="px-4 py-2 bg-gray-200">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {collections?.map((c) => (
+                    <tr key={c._id}  >
+                      <td className="px-4 text-center py-2 border-b  ">{c.name}</td>
+                      <td className="px-4 py-2 border-b  flex items-center justify-center ">
+                        <button
+                          className="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full mr-2"
+                          onClick={() => {
+                            setVisible(true);
+                            setUpdatedName(c.name);
+                            setSelected(c);
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                          onClick={() => {
+                            handleDelete(c._id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <Modal
+              onCancel={() => setVisible(false)}
+              footer={null}
+              visible={visible}
+            >
+              <CategoryForm
+                value={updatedName}
+                setValue={setUpdatedName}
+                handleSubmit={handleUpdate}
+              />
+            </Modal>
+          </div>
         </div>
-        <div className="w-3/4">
-          <table className="table-auto border-collapse border border-gray-300">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 bg-gray-200 border border-gray-300">Name</th>
-                <th className="px-4 py-2 bg-gray-200 border border-gray-300">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {collections?.map((c) => (
-                <tr key={c._id}>
-                  <td className="px-4 py-2 border border-gray-300">{c.name}</td>
-                  <td className="px-4 py-2 border border-gray-300">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2"
-                      onClick={() => {
-                        setVisible(true);
-                        setUpdatedName(c.name);
-                        setSelected(c);
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-                      onClick={() => {
-                        handleDelete(c._id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <Modal
-          onCancel={() => setVisible(false)}
-          footer={null}
-          visible={visible}
-        >
-          <CategoryForm
-            value={updatedName}
-            setValue={setUpdatedName}
-            handleSubmit={handleUpdate}
-          />
-        </Modal>
       </div>
-    </div>
-  </div>
-</Layout>
-
+    </Layout>
   );
 }
 
