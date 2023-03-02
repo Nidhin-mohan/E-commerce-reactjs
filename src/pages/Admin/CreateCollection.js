@@ -1,9 +1,159 @@
-import React from 'react'
-
+import React, { useEffect, useState } from "react";
+import Layout from "./../../components/Layout/Layout";
+import AdminMenu from "./../../components/Layout/AdminMenu";
+import toast from "react-hot-toast";
+import axios from "axios";
+import CategoryForm from "../../components/Form/CategoryForm";
+import { Modal } from "antd";
 const CreateCollection = () => {
+  const [collections, setCollections] = useState([]);
+  const [name, setName] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [updatedName, setUpdatedName] = useState("");
+  //handle Form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("/api/v1//collection", {
+        name,
+      });
+      if (data?.success) {
+        toast.success(`${name} is created`);
+        getAllCollections();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("somthing went wrong in input form");
+    }
+  };
+
+  //get all cat
+  const getAllCollections = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/collections");
+      if (data.success) {
+        setCollections(data.collections);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something wwent wrong in getting catgeory");
+    }
+  };
+
+  useEffect(() => {
+    getAllCollections();
+  }, []);
+
+  //update category
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const id = selected._id;
+      const { data } = await axios.put(`/api/v1/collection/${id}`, {
+        name: updatedName,
+      });
+      if (data.success) {
+        toast.success(`${updatedName} is updated`);
+        setSelected(null);
+        setUpdatedName("");
+        setVisible(false);
+        getAllCollections();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Somtihing went wrong");
+    }
+  };
+  //delete category
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axios.delete(`/api/v1/collection/${id}`);
+      if (data.success) {
+        toast.success(`category is deleted`);
+
+        getAllCollections();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Somtihing went wrong");
+    }
+  };
   return (
-    <div>CreateCollection</div>
-  )
+    <Layout title={"Dashboard - Create Category"}>
+
+  <div className="container mx-auto my-3 px-3">
+    <div className="flex flex-row">
+      <div className="w-1/4">
+        <AdminMenu />
+      </div>
+      <div className="w-3/4">
+        <h1 className="text-3xl font-bold mb-3">Manage Category</h1>
+        <div className="p-3 w-1/2">
+          <CategoryForm
+            handleSubmit={handleSubmit}
+            value={name}
+            setValue={setName}
+          />
+        </div>
+        <div className="w-3/4">
+          <table className="table-auto border-collapse border border-gray-300">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 bg-gray-200 border border-gray-300">Name</th>
+                <th className="px-4 py-2 bg-gray-200 border border-gray-300">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {collections?.map((c) => (
+                <tr key={c._id}>
+                  <td className="px-4 py-2 border border-gray-300">{c.name}</td>
+                  <td className="px-4 py-2 border border-gray-300">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2"
+                      onClick={() => {
+                        setVisible(true);
+                        setUpdatedName(c.name);
+                        setSelected(c);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                      onClick={() => {
+                        handleDelete(c._id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <Modal
+          onCancel={() => setVisible(false)}
+          footer={null}
+          visible={visible}
+        >
+          <CategoryForm
+            value={updatedName}
+            setValue={setUpdatedName}
+            handleSubmit={handleUpdate}
+          />
+        </Modal>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+  );
 }
 
-export default CreateCollection
+    export default CreateCollection;                      
