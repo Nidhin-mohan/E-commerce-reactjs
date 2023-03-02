@@ -59,41 +59,46 @@ const Header = () => {
                   Login
                 </NavLink>
               </>
-            ) : (<>
-              <li className="relative">
-                <button
-                  className="flex items-center justify-center h-full w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  id="options-menu"
-                  aria-haspopup="true"
-                  aria-expanded="true"
-                  aria-label="User menu"
-                >
-                  <span className="sr-only">Open user menu</span>
-                  <span>{auth?.user?.name}</span>
-                </button>
-                <div
-                  className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="options-menu"
-                >
-                  <a
-                    href="/dashboard"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    role="menuitem"
+            ) : (
+              <>
+                <li className="relative">
+                  <button
+                    className="flex items-center justify-center h-full w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    id="options-menu"
+                    aria-haspopup="true"
+                    aria-expanded="true"
+                    aria-label="User menu"
                   >
-                    Dashboard
-                  </a>
-                  <a
-                    href="/login"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    role="menuitem"
-                    onClick={handleLogout}
+                    <span className="sr-only">Open user menu</span>
+                    <span>{auth?.user?.name}</span>
+                  </button>
+                  <div
+                    className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu"
                   >
-                    Logout
-                  </a>
-                </div>
-              </li>
+                    <NavLink
+                      to={`/dashboard/${
+                        auth?.user?.role === "ADMIN" ? "admin" : "user"
+                      }`}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                      activeClassName="bg-gray-100 text-gray-900"
+                    >
+                      Dashboard
+                    </NavLink>
+                    <NavLink
+                      to="/login"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                      onClick={handleLogout}
+                      activeClassName="bg-gray-100 text-gray-900"
+                    >
+                      Logout
+                    </NavLink>
+                  </div>
+                </li>
               </>
             )}
 
