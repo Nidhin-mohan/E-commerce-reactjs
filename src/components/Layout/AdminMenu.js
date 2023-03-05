@@ -15,7 +15,14 @@ const AdminMenu = () => {
             Collections
           </NavLink>
           <NavLink
-            to="/dashboard/admin/product"
+            to="/dashboard/admin/product/add"
+            className="font-bold block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            activeClassName="bg-gray-100 text-gray-900"
+          >
+            Add Product
+          </NavLink>
+          <NavLink
+            to="/dashboard/admin/products"
             className="font-bold block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             activeClassName="bg-gray-100 text-gray-900"
           >

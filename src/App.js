@@ -15,6 +15,7 @@ import CreateProduct from "./pages/Admin/CreateProduct";
 import CreateCollection from "./pages/Admin/CreateCollection";
 import Orders from "./pages/User/Orders";
 import Profile from "./pages/User/Profile";
+import Products from "./pages/Admin/Products";
   
 
 
@@ -30,7 +31,8 @@ function App() {
         </Route>
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
-          <Route path="admin/product" element={<CreateProduct />} />
+          <Route path="admin/product/add" element={<CreateProduct />} />
+          <Route path="admin/products" element={<Products />} />
           <Route path="admin/collection" element={<CreateCollection />} />
         </Route>
 
