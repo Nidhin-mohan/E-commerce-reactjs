@@ -52,9 +52,10 @@ const CreateProducts = () => {
       productData.append("description", description);
       productData.append("price", price);
       productData.append("stock", stock);
-      productData.append("photo", photo);
-      productData.append("collection", collection);
-      console.log("product data",productData)
+      productData.append("photos", photo);
+      productData.append("collectionId", collection);
+      productData.append("brand", brand);
+     
       const { data } = axios.post("/api/v1/admin/product", productData, {
         headers: {
           "Content-Type": "multipart/form-data",
