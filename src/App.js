@@ -16,6 +16,7 @@ import CreateCollection from "./pages/Admin/CreateCollection";
 import Orders from "./pages/User/Orders";
 import Profile from "./pages/User/Profile";
 import Products from "./pages/Admin/Products";
+// import UpdateProducts from "./pages/Admin/UpdateProduct";
   
 
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="admin/product/add" element={<CreateProduct />} />
+          {/* <Route path="admin/product/:slug" element={<UpdateProducts />} /> */}
           <Route path="admin/products" element={<Products />} />
           <Route path="admin/collection" element={<CreateCollection />} />
         </Route>
