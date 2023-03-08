@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 const Layout = ({ children, title, description, keywords, author }) => {
   return (
-    <div>
+    <div className="flex  flex-col space-y-4 justify-between ">
       <Helmet>
         <meta charSet="utf-8" />
         <meta name="description" content={description} />
@@ -20,7 +20,7 @@ const Layout = ({ children, title, description, keywords, author }) => {
 
         {children}
       </main>
-      <Footer />
+      <Footer  />
     </div>
   );
 };
