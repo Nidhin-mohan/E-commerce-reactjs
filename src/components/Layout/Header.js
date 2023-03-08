@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     
-      <nav className="bg-body-tertiary py-3 shadow-lg  ">
+      <nav className="sticky top-0  bg-body-tertiary py-3 shadow-lg  ">
         <div className="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
           <div className="flex items-center justify-between">
             <Link to="/" className="text-2xl hover: font-semibold text-black">
