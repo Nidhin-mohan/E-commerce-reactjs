@@ -15,12 +15,12 @@ const Layout = ({ children, title, description, keywords, author }) => {
         <title>{title}</title>
       </Helmet>
       <Header />
-      <main className="min-h-min">
+      <main className="flex flex-col min-h-screen">
         <Toaster />
 
         {children}
       </main>
-      <Footer  />
+      <Footer />
     </div>
   );
 };
