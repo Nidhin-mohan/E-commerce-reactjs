@@ -17,36 +17,35 @@ const UpdateProduct = () => {
   const [collection, setCollection] = useState("");
   const [stock, setStock] = useState("");
   const [brand, setBrand] = useState("");
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState([]);
+  const [oldphoto, setOldPhoto] = useState([]);
+  const [id, setId] = useState("");
 
   //get single product
   const getSingleProduct = async () => {
     try {
-      const { data } = await axios.get(
-        `/api/v1/product/get-product/${params.slug}`
-      );
+      const { data } = await axios.get(`/api/v1/product/${params.slug}`);
+
       setName(data.product.name);
       setId(data.product._id);
       setDescription(data.product.description);
       setPrice(data.product.price);
-      setPrice(data.product.price);
-      setQuantity(data.product.quantity);
-      setShipping(data.product.shipping);
-      setCategory(data.product.category._id);
+      setBrand(data.product.brand);
+      setStock(data.product.stock);
+      setPhoto(data.product.photos);
+      setOldPhoto(data.product.photos);
+      setCollection(data.product.collectionId);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    getSingleProduct();
-    //eslint-disable-next-line
-  }, []);
   //get all category
-  const getAllCategory = async () => {
+  const getAllCollections = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get("/api/v1//collections");
       if (data?.success) {
-        setCategories(data?.category);
+        setCollections(data?.collections);
+       
       }
     } catch (error) {
       console.log(error);
@@ -55,7 +54,9 @@ const UpdateProduct = () => {
   };
 
   useEffect(() => {
-    getAllCategory();
+    getSingleProduct();
+    getAllCollections();
+    //eslint-disable-next-line
   }, []);
 
   //create product function
@@ -66,19 +67,21 @@ const UpdateProduct = () => {
       productData.append("name", name);
       productData.append("description", description);
       productData.append("price", price);
-      productData.append("quantity", quantity);
-      photo && productData.append("photo", photo);
-      productData.append("category", category);
-      const { data } = axios.put(
-        `/api/v1/product/update-product/${id}`,
+      productData.append("stock", stock);
+      photo !== oldphoto && productData.append("photos", photo);
+      productData.append("collectionId", collection);
+      productData.append("brand", brand);
+
+      const { data } = await axios.put(
+        `/api/v1/admin/product/${id}`,
         productData
       );
-      if (data?.success) {
-        toast.error(data?.message);
-      } else {
-        toast.success("Product Updated Successfully");
-        navigate("/dashboard/admin/products");
-      }
+     if (data?.success) {
+       toast.success(data?.message);
+     } else {
+       toast.error(data?.message);
+       navigate("/dashboard/admin/products");
+     }
     } catch (error) {
       console.log(error);
       toast.error("something went wrong");
@@ -90,10 +93,9 @@ const UpdateProduct = () => {
     try {
       let answer = window.prompt("Are You Sure want to delete this product ? ");
       if (!answer) return;
-      const { data } = await axios.delete(
-        `/api/v1/product/delete-product/${id}`
-      );
-      toast.success("Product DEleted Succfully");
+      const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+
+      toast.success(data.message);
       navigate("/dashboard/admin/products");
     } catch (error) {
       console.log(error);
@@ -112,10 +114,10 @@ const UpdateProduct = () => {
             <div className="p-3 w-1/2">
               <div className="m-1 w-75">
                 <div className="mb-3">
-                  {photo && (
+                  {photo.length > 0 && (
                     <div className="text-center flex items-center justify-center ">
                       <img
-                        src={URL.createObjectURL(photo)}
+                        src={photo[0].secure_url}
                         alt="product_photo"
                         height={"200px"}
                         className="img img-responsive w-64"
@@ -196,12 +198,18 @@ const UpdateProduct = () => {
                     />
                   </label>
                 </div>
-                <div className="mb-3 flex items-center justify-center">
+                <div className="mb-3 flex flex-col gap-3 items-center justify-center">
                   <button
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                     onClick={handleUpdate}
                   >
                     Update Product
+                  </button>
+                  <button
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    onClick={handleDelete}
+                  >
+                    Delete Product
                   </button>
                 </div>
               </div>
@@ -214,4 +222,4 @@ const UpdateProduct = () => {
   );
 };
 
-export default UpdateProducts;
+export default UpdateProduct;

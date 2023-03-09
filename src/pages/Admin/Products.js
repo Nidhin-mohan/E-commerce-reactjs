@@ -14,7 +14,7 @@ import ProductItem from './ProductItem';
         try {
           const  {data}  = await axios.get("/api/v1/products");
           setProducts(data.products);
-          console.log(products);
+          
         } catch (error) {
           console.log(error);
           toast.error("Someething Went Wrong");

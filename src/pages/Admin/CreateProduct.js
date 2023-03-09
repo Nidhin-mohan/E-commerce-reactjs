@@ -40,13 +40,6 @@ const CreateProducts = () => {
     e.preventDefault();
     try {
 
-      console.log("name:", name);
-      console.log("description:", description);
-      console.log("price:", price);
-      console.log("stock:", stock);
-      console.log("photo:", photo);
-      console.log("collection:", collection);
-
       const productData = new FormData();
       productData.append("name", name);
       productData.append("description", description);
