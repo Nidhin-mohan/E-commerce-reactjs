@@ -4,7 +4,7 @@ import AdminMenu from "./../../components/Layout/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
 import CategoryForm from "../../components/Form/CategoryForm";
-import { Modal } from "antd";
+import Modal from "antd/lib/modal/Modal";
 const CreateCollection = () => {
   const [collections, setCollections] = useState([]);
   const [name, setName] = useState("");

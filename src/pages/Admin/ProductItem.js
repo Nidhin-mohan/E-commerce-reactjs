@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
-import { StarIcon } from "@heroicons/react/solid";
+import StarIcon from "@heroicons/react/solid/StarIcon";
+
 
 
 const ProductItem = ({product}) => {
