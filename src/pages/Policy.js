@@ -50,9 +50,7 @@ const Policy = () => {
         <p>
           We value your privacy and are committed to protecting your personal
           information. Please read our full{" "}
-          <a href="#" class="text-indigo-500 font-medium">
-            Privacy Policy
-          </a>{" "}
+          <button class="text-indigo-500 font-medium">Privacy Policy</button>
           to learn more about how we collect, use, and protect your information.
         </p>
       </div>

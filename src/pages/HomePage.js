@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import Layout from "./../components/Layout/Layout";
 
 import axios from "axios";
-import { Checkbox, Radio } from "antd";
+import Checkbox from 'antd/lib/checkbox';
+import Radio from 'antd/lib/radio';
+import 'antd/lib/checkbox/style';
+import 'antd/lib/radio/style';
+
 import { Prices } from "../components/Prices";
 const HomePage = () => {
   const [products, setProducts] = useState([]);
