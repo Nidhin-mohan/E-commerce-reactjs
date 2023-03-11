@@ -31,7 +31,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getAllCollections();
-    getTotal();
+    // getTotal();
   }, []);
   //get products
   const getAllProducts = async () => {
@@ -88,21 +88,23 @@ const HomePage = () => {
   }, [checked.length, radio.length]);
 
   useEffect(() => {
+    console.log("check", checked , radio)
     if (checked.length || radio.length) filterProduct();
   }, [checked, radio]);
 
   //get filterd product
-  const filterProduct = async () => {
-    try {
-      const { data } = await axios.post("/api/v1/product/product-filters", {
-        checked,
-        radio,
-      });
-      setProducts(data?.products);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ const filterProduct = async () => {
+   try {
+    const { data } = await axios.get(
+      `/api/v1/product/filters?checked=${checked}&radio=${radio}`
+    );
+
+     setProducts(data?.products);
+   } catch (error) {
+     console.log(error);
+   }
+ };
+
   return (
     <Layout title={"ALl Products - Best offers "}>
       <div className="container mx-auto flex flex-row mt-3">
@@ -110,14 +112,12 @@ const HomePage = () => {
           <h4 className="text-center font-bold">Filter By collection</h4>
           <div className="flex flex-col mt-4">
             {collections?.map((c) => (
-              <label key={c._id} className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  className="form-checkbox h-5 w-5 text-gray-600"
-                  onChange={(e) => handleFilter(e.target.checked, c._id)}
-                />
-                <span className="ml-2 text-gray-700">{c.name}</span>
-              </label>
+              <Checkbox
+                key={c._id}
+                onChange={(e) => handleFilter(e.target.checked, c._id)}
+              >
+                {c.name}
+              </Checkbox>
             ))}
           </div>
           {/* price filter */}
@@ -125,10 +125,8 @@ const HomePage = () => {
           <div className="flex flex-col mt-4">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
-                <div key={p._id} className="inline-block mr-4">
-                  <Radio value={p.array} className="mr-2">
-                    {p.name}
-                  </Radio>
+                <div key={p._id}>
+                  <Radio value={p.array}>{p.name}</Radio>
                 </div>
               ))}
             </Radio.Group>
