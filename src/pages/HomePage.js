@@ -9,6 +9,7 @@ import 'antd/lib/radio/style';
 
 import { Prices } from "../components/Prices";
 const HomePage = () => {
+  const REACT_APP_URL = process.env.REACT_APP_URL
   const [products, setProducts] = useState([]);
   const [collections, setcollections] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -37,7 +38,7 @@ const HomePage = () => {
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/api/v1/products`);
+      const { data } = await axios.get(`${REACT_APP_URL}/api/v1/products`);
       setLoading(false);
       setProducts(data.products);
     } catch (error) {
