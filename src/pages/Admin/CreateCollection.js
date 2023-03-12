@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import CategoryForm from "../../components/Form/CategoryForm";
 import Modal from "antd/lib/modal/Modal";
+
 const CreateCollection = () => {
+  const REACT_APP_URL = process.env.REACT_APP_URL;
   const [collections, setCollections] = useState([]);
   const [name, setName] = useState("");
   const [visible, setVisible] = useState(false);
@@ -15,7 +17,7 @@ const CreateCollection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/v1//collection", {
+      const { data } = await axios.post("${REACT_APP_URL}/api/v1//collection", {
         name,
       });
       if (data?.success) {
@@ -34,7 +36,7 @@ const CreateCollection = () => {
   //get all cat
   const getAllCollections = async () => {
     try {
-      const { data } = await axios.get("/api/v1/collections");
+      const { data } = await axios.get("${REACT_APP_URL}/api/v1/collections");
       if (data.success) {
         setCollections(data.collections);
       }
@@ -53,9 +55,12 @@ const CreateCollection = () => {
     e.preventDefault();
     try {
       const id = selected._id;
-      const { data } = await axios.put(`/api/v1/collection/${id}`, {
-        name: updatedName,
-      });
+      const { data } = await axios.put(
+        `${REACT_APP_URL}/api/v1/collection/${id}`,
+        {
+          name: updatedName,
+        }
+      );
       if (data.success) {
         toast.success(`${updatedName} is updated`);
         setSelected(null);
@@ -72,7 +77,9 @@ const CreateCollection = () => {
   //delete category
   const handleDelete = async (id) => {
     try {
-      const { data } = await axios.delete(`/api/v1/collection/${id}`);
+      const { data } = await axios.delete(
+        `${REACT_APP_URL}/api/v1/collection/${id}`
+      );
       if (data.success) {
         toast.success(`category is deleted`);
 

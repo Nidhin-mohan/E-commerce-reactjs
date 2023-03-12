@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Layout from "../../components/Layout/Layout";
 
 const Register = () => {
+  const REACT_APP_URL = process.env.REACT_APP_URL;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +15,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`/api/v1/auth/signup`, {
+      const res = await axios.post(`${REACT_APP_URL}/api/v1/auth/signup`, {
         name,
         email,
         password,

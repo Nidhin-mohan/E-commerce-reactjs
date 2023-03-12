@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import AdminMenu from '../../components/Layout/AdminMenu';
 import Layout from '../../components/Layout/Layout';
 import ProductItem from './ProductItem';
+const REACT_APP_URL = process.env.REACT_APP_URL;
 
 
     const Products = () => {
@@ -12,7 +13,7 @@ import ProductItem from './ProductItem';
       //getall products
       const getAllProducts = async () => {
         try {
-          const  {data}  = await axios.get("/api/v1/products");
+          const { data } = await axios.get("${REACT_APP_URL}/api/v1/products");
           setProducts(data.products);
           
         } catch (error) {

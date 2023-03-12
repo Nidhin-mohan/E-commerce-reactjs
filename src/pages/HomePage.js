@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./../components/Layout/Layout";
-
 import axios from "axios";
 import Checkbox from 'antd/lib/checkbox';
 import Radio from 'antd/lib/radio';
@@ -21,7 +20,7 @@ const HomePage = () => {
   //get all cat
   const getAllCollections = async () => {
     try {
-      const { data } = await axios.get("/api/v1/collections");
+      const { data } = await axios.get("${REACT_APP_URL}/api/v1/collections");
       if (data?.success) {
         setcollections(data?.collections);
       }
@@ -50,7 +49,9 @@ const HomePage = () => {
   //getTOtal COunt
   const getTotal = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/product-count");
+      const { data } = await axios.get(
+        "${REACT_APP_URL}/api/v1/product/product-count"
+      );
       setTotal(data?.total);
     } catch (error) {
       console.log(error);
@@ -65,7 +66,9 @@ const HomePage = () => {
   const loadMore = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/api/v1/product/${page}`);
+      const { data } = await axios.get(
+        `${REACT_APP_URL}/api/v1/product/${page}`
+      );
       setLoading(false);
       setProducts([...products, ...data?.products]);
     } catch (error) {
@@ -97,7 +100,7 @@ const HomePage = () => {
  const filterProduct = async () => {
    try {
     const { data } = await axios.get(
-      `/api/v1/product/filters?checked=${checked}&radio=${radio}`
+      `${REACT_APP_URL}/api/v1/product/filters?checked=${checked}&radio=${radio}`
     );
 
      setProducts(data?.products);

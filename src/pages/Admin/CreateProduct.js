@@ -7,7 +7,9 @@ import Select from "antd/lib/select";
 import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
+
 const CreateProducts = () => {
+  const REACT_APP_URL = process.env.REACT_APP_URL;
   const navigate = useNavigate();
   const [collections, setCollections] = useState([]);
   const [name, setName] = useState("");
@@ -21,7 +23,7 @@ const CreateProducts = () => {
   //get all category
   const getAllCollections = async () => {
     try {
-      const { data } = await axios.get("/api/v1//collections");
+      const { data } = await axios.get("${REACT_APP_URL}/api/v1//collections");
       if (data?.success) {
         setCollections(data?.collections);
       }
@@ -49,11 +51,15 @@ const CreateProducts = () => {
       productData.append("collectionId", collection);
       productData.append("brand", brand);
      
-      const { data } = axios.post("/api/v1/admin/product", productData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const { data } = axios.post(
+        "${REACT_APP_URL}/api/v1/admin/product",
+        productData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       
       if (data?.success) {
         toast.error(data?.message);

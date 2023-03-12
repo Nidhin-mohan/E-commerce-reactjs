@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const { Option } = Select;
 
 const UpdateProduct = () => {
+  const REACT_APP_URL = process.env.REACT_APP_URL;
   const navigate = useNavigate();
   const params = useParams();
   const [collections, setCollections] = useState([]);
@@ -24,7 +25,9 @@ const UpdateProduct = () => {
   //get single product
   const getSingleProduct = async () => {
     try {
-      const { data } = await axios.get(`/api/v1/product/${params.slug}`);
+      const { data } = await axios.get(
+        `${REACT_APP_URL}/api/v1/product/${params.slug}`
+      );
 
       setName(data.product.name);
       setId(data.product._id);
@@ -42,7 +45,7 @@ const UpdateProduct = () => {
   //get all category
   const getAllCollections = async () => {
     try {
-      const { data } = await axios.get("/api/v1//collections");
+      const { data } = await axios.get("${REACT_APP_URL}/api/v1//collections");
       if (data?.success) {
         setCollections(data?.collections);
        
@@ -73,7 +76,7 @@ const UpdateProduct = () => {
       productData.append("brand", brand);
 
       const { data } = await axios.put(
-        `/api/v1/admin/product/${id}`,
+        `${REACT_APP_URL}/api/v1/admin/product/${id}`,
         productData
       );
      if (data?.success) {
@@ -93,7 +96,9 @@ const UpdateProduct = () => {
     try {
       let answer = window.prompt("Are You Sure want to delete this product ? ");
       if (!answer) return;
-      const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+      const { data } = await axios.delete(
+        `${REACT_APP_URL}/api/v1/admin/product/${id}`
+      );
 
       toast.success(data.message);
       navigate("/dashboard/admin/products");
