@@ -11,7 +11,7 @@ export default function AdminRoute() {
 
   useEffect(() => {
     const authCheck = async () => {
-      const res = await axios.get("${REACT_APP_URL}/api/v1/auth/profile");
+      const res = await axios.get(`${REACT_APP_URL}/api/v1/auth/profile`);
       if (res.data.user?.role === "ADMIN") {
         setOk(true);
       } else {

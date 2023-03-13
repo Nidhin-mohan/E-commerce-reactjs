@@ -25,6 +25,7 @@ const AuthProvider = ({children}) => {
   //default axios
   axios.defaults.headers.common["Authorization"] = auth?.token;
 
+  
   return (
     <AuthContext.Provider value={[auth, setAuth]}>
       {children}

@@ -20,7 +20,7 @@ const HomePage = () => {
   //get all cat
   const getAllCollections = async () => {
     try {
-      const { data } = await axios.get("${REACT_APP_URL}/api/v1/collections");
+      const { data } = await axios.get(`${REACT_APP_URL}/api/v1/collections`);
       if (data?.success) {
         setcollections(data?.collections);
       }
@@ -50,7 +50,7 @@ const HomePage = () => {
   const getTotal = async () => {
     try {
       const { data } = await axios.get(
-        "${REACT_APP_URL}/api/v1/product/product-count"
+        `${REACT_APP_URL}/api/v1/product/product-count`
       );
       setTotal(data?.total);
     } catch (error) {
