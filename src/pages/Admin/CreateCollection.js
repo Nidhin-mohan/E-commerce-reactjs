@@ -17,7 +17,7 @@ const CreateCollection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("${REACT_APP_URL}/api/v1//collection", {
+      const { data } = await axios.post(`${REACT_APP_URL}/api/v1//collection`, {
         name,
       });
       if (data?.success) {
@@ -36,7 +36,7 @@ const CreateCollection = () => {
   //get all cat
   const getAllCollections = async () => {
     try {
-      const { data } = await axios.get("${REACT_APP_URL}/api/v1/collections");
+      const { data } = await axios.get(`${REACT_APP_URL}/api/v1/collections`);
       if (data.success) {
         setCollections(data.collections);
       }
