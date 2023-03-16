@@ -7,7 +7,9 @@ import 'antd/lib/checkbox/style';
 import 'antd/lib/radio/style';
 
 import { Prices } from "../components/Prices";
+import { useNavigate } from "react-router-dom";
 const HomePage = () => {
+  const navigate = useNavigate();
   const REACT_APP_URL = process.env.REACT_APP_URL
   const [products, setProducts] = useState([]);
   const [collections, setcollections] = useState([]);
@@ -16,6 +18,7 @@ const HomePage = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+
 
   //get all cat
   const getAllCollections = async () => {
@@ -163,7 +166,8 @@ const HomePage = () => {
                     Rs {p.price}
                   </p>
                   <div className="flex flex-row">
-                    <button className="bg-blue-600 text-white py-2 px-4 rounded-full mr-2">
+                    <button className="bg-blue-600 text-white py-2 px-4 rounded-full mr-2" onClick={() => {navigate(`/product/${p._id}`)}}>
+                      {console.log(p)}
                       More Details
                     </button>
                     <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full">

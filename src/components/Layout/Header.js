@@ -38,12 +38,7 @@ const Header = () => {
             >
               Home
             </NavLink>
-            <NavLink
-              to="/category"
-              className="my-1 text-black hover:text-gray-900 px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-xl md:font-medium"
-            >
-              Category
-            </NavLink>
+           
             {!auth.user ? (
               <>
                 <NavLink

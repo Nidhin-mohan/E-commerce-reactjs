@@ -13,7 +13,7 @@ const REACT_APP_URL = process.env.REACT_APP_URL;
       //getall products
       const getAllProducts = async () => {
         try {
-          const { data } = await axios.get("${REACT_APP_URL}/api/v1/products");
+          const { data } = await axios.get(`${REACT_APP_URL}/api/v1/products`);
           setProducts(data.products);
           
         } catch (error) {

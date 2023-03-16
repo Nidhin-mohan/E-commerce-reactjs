@@ -17,7 +17,7 @@ const CreateCollection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${REACT_APP_URL}/api/v1//collection`, {
+      const { data } = await axios.post(`${REACT_APP_URL}/api/v1/`, {
         name,
       });
       if (data?.success) {
