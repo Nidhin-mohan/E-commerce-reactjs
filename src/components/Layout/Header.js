@@ -2,10 +2,13 @@ import React from "react";
 import { toast } from "react-hot-toast";
 import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
+import { useCart } from "../../context/cart";
 
 
 const Header = () => {
+  
   const [auth, setAuth] = useAuth()
+  const [cart] = useCart()
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -101,7 +104,7 @@ const Header = () => {
               to="/cart"
               className="my-1 text-black hover:text-gray-900px-3 py-2 md:mx-2 md:my-0 md:py-1 md:text-sm md:font-medium"
             >
-              <span className="flex items-center md:text-xl">Cart (0)</span>
+              <span className="flex items-center md:text-xl">Cart ({cart.length})</span>
             </NavLink>
           </div>
         </div>
