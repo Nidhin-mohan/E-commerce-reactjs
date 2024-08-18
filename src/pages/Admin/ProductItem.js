@@ -1,5 +1,7 @@
 
 import { Link } from 'react-router-dom';
+import defaultImage from "../../assets/default.jpg";
+
 // import StarIcon from "@heroicons/react/solid/StarIcon";
 
 
@@ -18,13 +20,15 @@ const ProductItem = ({product}) => {
           alt="ecommerce"
           className="object-cover object-center w-full h-full block"
           src={product.photos[0].secure_url}
+          onError={(e) => {
+            e.target.src = defaultImage;
+            e.target.className = "w-[400px] h-[300px] object-contain";
+          }}
         />
       </div>
 
       <div className="mt-4">
-        <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-         
-        </h3>
+        <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1"></h3>
         <h2 className="text-gray-900 title-font text-lg font-medium">
           {product.name}
         </h2>

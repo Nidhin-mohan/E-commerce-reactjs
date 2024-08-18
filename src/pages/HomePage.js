@@ -9,10 +9,12 @@ import 'antd/lib/radio/style';
 import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
+import defaultImage from "../assets/default.jpg";
 import { toast } from "react-hot-toast";
 const HomePage = () => {
   const navigate = useNavigate();
-  const REACT_APP_URL = process.env.REACT_APP_URL
+  // const REACT_APP_URL = "https://ecommerse-fsjs-production.up.railway.app"
+  const REACT_APP_URL = process.env.REACT_APP_URL;
   const [products, setProducts] = useState([]);
   const [collections, setcollections] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -157,6 +159,10 @@ const HomePage = () => {
               <div className="bg-white rounded-lg shadow-md">
                 <img
                   src={p.photos[0].secure_url}
+                  onError={(e) => {
+                    e.target.src = defaultImage;
+                    e.target.className = "w-[400px] h-[300px] object-contain";
+                  }}
                   className="w-full h-60 object-cover rounded-t-lg"
                   alt={p.name}
                 />
@@ -169,19 +175,24 @@ const HomePage = () => {
                     Rs {p.price}
                   </p>
                   <div className="flex flex-row">
-                    <button className="bg-blue-600 text-white py-2 px-4 rounded-full mr-2" onClick={() => {navigate(`/product/${p._id}`)}}>
-                      
+                    <button
+                      className="bg-blue-600 text-white py-2 px-4 rounded-full mr-2"
+                      onClick={() => {
+                        navigate(`/product/${p._id}`);
+                      }}
+                    >
                       More Details
                     </button>
-                    <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full"
-                    onClick={() => {
-                      setCart([...cart, p ])
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                      toast.success("Item added to cart")
-                    }}
+                    <button
+                      className="bg-gray-300 text-gray-700 py-2 px-4 rounded-full"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                        toast.success("Item added to cart");
+                      }}
                     >
                       ADD TO CART
                     </button>
